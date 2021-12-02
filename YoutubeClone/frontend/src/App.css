@@ -1,0 +1,6 @@
+.app {
+  overflow: scroll;
+}
+.app__page {
+  display: flex;
+}

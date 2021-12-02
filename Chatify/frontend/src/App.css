@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap");
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  background-image: url("./background.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.281);
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+.chakra-modal__footer{
+  display: flex !important;
+  justify-content: start !important;
+
+}
+
+.chakra-modal__footer button:first-child{
+  margin-right: 1.8rem;
+  background-color: red;
+  color: whitesmoke;
+}

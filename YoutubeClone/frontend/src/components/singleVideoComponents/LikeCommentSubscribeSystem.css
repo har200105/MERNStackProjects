@@ -1,0 +1,58 @@
+.likeCommentSubscribeSystem {
+  margin-top: 15px;
+  overflow: scroll;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.flex > h4 {
+  margin-left: 10px;
+}
+.btn__subscribe {
+  color: #fff !important;
+  background: red !important;
+  margin-left: auto !important;
+}
+.btn__noUserSubscribe {
+  color: #fff !important;
+  background: darkgray !important;
+  margin-left: auto !important;
+}
+.desc {
+  margin-left: 5%;
+  margin-bottom: 5%;
+}
+.comment {
+  margin-left: 15px;
+}
+.iconOfLikeDislike:nth-child(1),
+.iconOfLikeDislike:nth-child(2),
+.iconOfLikeDislike:nth-child(3) {
+  color: gray !important;
+  margin-left: 30px;
+}
+
+.iconOfLikeDislike:nth-child(4) {
+  color: red !important;
+  margin-left: 30px;
+}
+.pOfLikeDislike {
+  font-size: 16px;
+  margin-left: 10px;
+}
+.like {
+  margin-left: 53%;
+  align-items: center;
+}
+.likeViewContainer {
+  height: 30px;
+  margin-left: 10px;
+}
+
+.videoViews {
+  color: gray;
+  margin-top: 15px;
+}
