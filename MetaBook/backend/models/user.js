@@ -13,16 +13,12 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    friends: [{
-        type: Schema.Types.ObjectId,
+    following:[{
+        type: Schema.Types.ObjectId, 
         ref: "User"
     }],
-    pendingFriendRequests:[{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }],
-    sendFriendRequests:[{
-        type: Schema.Types.ObjectId,
+    followers:[{
+        type: Schema.Types.ObjectId, 
         ref: "User"
     }],
     profilePicture: {
@@ -31,33 +27,21 @@ const userSchema = mongoose.Schema({
     coverPicture: {
         type: String
     },
-    isAdmin: {
-        type: Boolean,
-        default: true
-    },
     bio:{
         type:String
     },
 
-    country:{
-        type:String
+    isOnline:{
+        type:Boolean,
+        default:false
     },
-
-    city:{
-        type:String
-    },
-
-    dateOfBirth:{
-        type:Date
-    },
-
-    notifications:{
-        notifyingText:String,
-        notifyingImage:String,
-        notifyingTime:Date
-    }
+    // notifications:{
+    //     notifyingText:String,
+    //     notifyingImage:String,
+    //     notifyingTime:Date
+    // }
 
 }, { timestamps: true });
 
-const User = mongoose.model("user",userSchema);
+const User = mongoose.model("User",userSchema);
 module.exports = User;

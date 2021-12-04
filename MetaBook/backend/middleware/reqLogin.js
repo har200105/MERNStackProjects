@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
     if (!authorization) {

@@ -1,52 +1,79 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { API } from "../../API";
 import "./ChatOnline.css";
+import {AuthContext} from '../../context/AuthContext';
+import {Link} from 'react-router-dom';
 
-export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
-  const [friends, setFriends] = useState([]);
-  const [onlineFriends, setOnlineFriends] = useState([]);
+export default function ChatOnline({ setCurrentChat }) {
+  // console.log(onlineUsers)
+  const [onlines, setOnlines] = useState([]);
+  const { user } = useContext(AuthContext);
 
+  const getOnlineUsers = async () => {
 
-  const getFriends = async () => {
-    const res = await axios.get(`${API}/getFriends`, {
-      headers: {
-        "Authorization": localStorage.getItem("jwt")
-      }
-    });
-    setFriends(res.data);
+      await axios.get(`${API}/getOnlineUsers`, {
+          headers: {
+              "Authorization": localStorage.getItem("jwt")
+          }
+      }).then((d) => {
+          if (d.status === 201) {
+              console.log(d.data)
+              setOnlines(d.data);
+          }
+      })
+
   }
 
-
   useEffect(() => {
-    getFriends();
-  }, [currentId]);
+      getOnlineUsers();
+  }, [onlines]);
 
-  useEffect(() => {
-    setOnlineFriends(friends.filter((f) => onlineUsers.includes(f._id)));
-  }, [friends, onlineUsers]);
 
-  const handleClick = async (user) => {
-    try {
-      const res = await axios.get(
-        `${API}/findConversations/${user._id}`, {
-        headers: {
-          "Authorization": localStorage.getItem("jwt")
-        }
-      }
-      );
-      if (res.status === 201) {
-        setCurrentChat(res.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getFriends = async () => {
+  //   const res = await axios.get(`${API}/`, {
+  //     headers: {
+  //       "Authorization": localStorage.getItem("jwt")
+  //     }
+  //   });
+  //   setFriends(res.data);
+  // }
+
+
+  // useEffect(() => {
+  //   getFriends();
+  // }, [currentId]);
+
+  // useEffect(() => {
+  //   setOnlineFriends(friends.filter((f) => onlineUsers.includes(f._id)));
+  // }, [friends, onlineUsers]);
+
+  // const handleClick = async (user) => {
+  //   try {
+  //     const res = await axios.get(
+  //       `${API}/findConversations/${user._id}`, {
+  //       headers: {
+  //         "Authorization": localStorage.getItem("jwt")
+  //       }
+  //     }
+  //     );
+  //     if (res.status === 201) {
+  //       setCurrentChat(res.data);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   return (
     <div className="chatOnline">
-      {onlineFriends.map((o) => (
-        <div className="chatOnlineFriend" onClick={() => handleClick(o)}>
+      {onlines.map((o) => (
+        user?._id !== o._id &&
+        <Link to={`/Messenger/?${o._id}`} style={{
+          textDecoration:"none",
+          color:"black"
+        }}>
+        <div className="chatOnlineFriend" >
           <div className="chatOnlineImgContainer">
             <img
               className="chatOnlineImg"
@@ -59,8 +86,9 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
             />
             <div className="chatOnlineBadge"></div>
           </div>
-          <span className="chatOnlineName">{o?.username}</span>
+          <span className="chatOnlineName">{o?.name}</span>
         </div>
+        </Link>
       ))}
     </div>
   );

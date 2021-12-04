@@ -47,49 +47,15 @@ const SideBar = () => {
             <Event className="sidebarIcon" />
             <span className="sidebarListItemText">Events</span>
           </li>
-          <li className="sidebarListItem">
-            <School className="sidebarIcon" />
-            <span className="sidebarListItemText">Courses</span>
-          </li>
         </ul>
         <button className="sidebarButton">
             Show More
         </button>
         <hr className="sidebarHr"/>
-        <ul className="sidebarFriendList">
-          
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-          <li className="siderbarFriend">
-            <img className="sidebarFriendImg" src="/assets/image.jpg" alt=""/>
-            <span className="sidebarFriendName">Harshit Rathi</span>
-          </li>  
-        </ul>
+       
             </div>
         </div>
     )
 }
 
-export default SideBar
+export default SideBar;

@@ -3,14 +3,16 @@ import { AuthContext } from '../../context/AuthContext';
 import { login } from '../../services/apihit';
 import './Login.css';
 import {CircularProgress} from '@material-ui/core'
+import { Navigate ,useNavigate} from 'react-router';
 
 const Login = () => {
     const email = useRef();
+    const navigate = useNavigate();
     const password = useRef();
     const {user,isFetching,error,dispatch} = useContext(AuthContext);
     const handleLogin=(e)=>{
         e.preventDefault();
-        login({email:email.current.value,password:password.current.value});
+        login({email:email.current.value,password:password.current.value},dispatch);
     }
 
     return (
@@ -26,15 +28,15 @@ const Login = () => {
                     <div className="loginRight">
                         <div className="loginBox">
                             <input placeholder="Email" className="loginInput" required type="email"
-                            ref={email}
+                               ref={email}
                             />
                             <input placeholder="Password" className="loginInput"
                              required type="password" minLength="8"
-                             ref={password}
+                               ref={password}
                              />
-                            <button className="loginButton">{isFetching ? <CircularProgress/> : "Log In" }</button>
+                            <button className="loginButton" onClick={handleLogin} >{isFetching ? <CircularProgress/> : "Log In" }</button>
                             <span className="loginForgot">Forgot Password?</span>
-                            <button className="loginRegisterButton">
+                            <button className="loginRegisterButton" onClick={()=>navigate("/Signup")}>
                                 Create a New Account
                             </button>
                         </div>

@@ -9,6 +9,7 @@
   
   .chatMenuInput {
     width: 90%;
+    outline: none;
     padding: 10px 0;
     border: none;
     border-bottom: 1px solid gray;
@@ -40,8 +41,11 @@
   
   .chatMessageInput {
     width: 80%;
-    height: 90px;
+    height: 20px;
     padding: 10px;
+    outline: none;
+    border-radius: 20px;
+    margin-bottom: 20px;
   }
   
   .chatSubmitButton {
@@ -49,8 +53,10 @@
     height: 40px;
     border: none;
     border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 20px;
     cursor: pointer;
-    background-color: teal;
+    background-color: rgb(90, 8, 223);
     color: white;
   }
   
@@ -78,10 +84,7 @@
       flex: 1;
     }
   
-    .chatMenuInput {
-      display: none;
-    }
-  
+
     .chatBox{
       flex: 10;
     }

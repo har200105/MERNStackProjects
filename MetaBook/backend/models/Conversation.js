@@ -4,7 +4,7 @@ const conversationSchema = new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref:"User"
     }]
-});
+},{timestamps:true});
 
 const Conversation = mongoose.model("conversation",conversationSchema);
 module.exports = Conversation;

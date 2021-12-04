@@ -9,7 +9,7 @@ router.post('/addMessage',reqLogin,async(req,res)=>{
       const savedMessage = await newMessage.save();
       res.status(201).json(savedMessage);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(422).json(err);
     }
 });
 
@@ -20,7 +20,7 @@ router.get('/getMessage/:id',reqLogin,async(req,res)=>{
         });
         res.status(201).json(messages);
       } catch (err) {
-        res.status(500).json(err);
+        res.status(422).json(err);
       }
 })
 

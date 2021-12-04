@@ -1,68 +1,76 @@
+import { useContext, useEffect, useState } from 'react';
 import './RightBar.css';
+import axios from 'axios';
+import { API } from '../../API';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
-const RightBar = ({ profile }) => {
+const RightBar = ({ profile, id }) => {
+
+    const [onlines, setOnlines] = useState([]);
+    const { user } = useContext(AuthContext);
+
+    const getOnlineUsers = async () => {
+
+        await axios.get(`${API}/getOnlineUsers`, {
+            headers: {
+                "Authorization": localStorage.getItem("jwt")
+            }
+        }).then((d) => {
+            if (d.status === 201) {
+                // console.log(d.data)
+                setOnlines(d.data);
+            }
+        })
+
+    }
+
+    useEffect(() => {
+        getOnlineUsers();
+    }, [onlines]);
+
+    const [userFriends, setUserFriends] = useState([]);
+    const getUserFriends = async () => {
+        await axios.get(`${API}/getUserInfo/${id}`, {
+            headers: {
+                "Authorization": localStorage.getItem("jwt")
+            }
+        }).then((da) => {
+            if (da.status === 201) {
+                // console.log(da.data);
+                setUserFriends(da.data);
+            }
+        })
+    }
+
+    useEffect(() => {
+        profile && getUserFriends();
+    }, [id]);
 
     const HomeRightBar = () => {
         return (
             <>
-                <div className="birthdayContainer">
-                    <img src="" alt="" className="birthdayImg" />
-                    <span className="birthdayText">
-                        <b>Dipika Biyani</b> and <b>3 Other Friends</b> have Birthday today
-                    </span>
-                </div>
-                <img src="/assets/image.jpg" alt="" className="rightbarAd" />
-                <h4 className="rightBarTitle">Online</h4>
+                <h4 className="rightBarTitle">Online Users</h4>
                 <ul className="rightBarFriendList">
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
-                    <li className="rightBarFriend">
-                        <div className="rightBarProfileImgContainer">
-                            <img src="assets/image.jpg" alt="" className="rightBarProfileImg" />
-                            <span className="rightBarOnline"></span>
-                        </div>
-                        <span className="rightBarUserName">Dipika Biyani</span>
-                    </li>
+                    
+                    {
+                        onlines?.map((o) => (
+                            o._id !== user._id &&
+                            <Link to={`/Messenger/?${o._id}`} style={{
+                                textDecoration:"none",
+                                color:"black"
+                            }}>
+                                <li className="rightBarFriend">
+                                    <div className="rightBarProfileImgContainer">
+                                        <img src={o.profilePicture ? o.profilePicture : "/assets/noAvatar.png"} alt="" className="rightBarProfileImg" />
+                                        <span className="rightBarOnline"></span>
+                                    </div>
+                                    <span className="rightBarUserName">{o?.name}</span>
+                                </li>
+                            </Link>
+                        ))
+                    }
+                    
                 </ul>
             </>
         );
@@ -72,8 +80,8 @@ const RightBar = ({ profile }) => {
     const ProfileRightBar = () => {
         return (
             <>
-                <h4 className="rightbarTitle">User information</h4>
-                <div className="rightbarInfo">
+                {/* <h4 className="rightbarTitle">User information</h4> */}
+                {/* <div className="rightbarInfo">
                     <div className="rightbarInfoItem">
                         <span className="rightbarInfoKey">City:</span>
                         <span className="rightbarInfoValue">New York</span>
@@ -86,57 +94,51 @@ const RightBar = ({ profile }) => {
                         <span className="rightbarInfoKey">Relationship:</span>
                         <span className="rightbarInfoValue">Single</span>
                     </div>
-                </div>
-                <h4 className="rightbarTitle">User friends</h4>
+                </div> */}
+                <h4 className="rightbarTitle">User Following</h4>
                 <div className="rightbarFollowings">
-                    <div className="rightbarFollowing">
-                        <img
-                            src="assets/person/1.jpeg"
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img
-                            src="assets/person/2.jpeg"
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img
-                            src="assets/person/3.jpeg"
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img
-                            src="assets/person/4.jpeg"
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img
-                            src="assets/person/5.jpeg"
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
-                    <div className="rightbarFollowing">
-                        <img
-                            src="assets/person/6.jpeg"
-                            alt=""
-                            className="rightbarFollowingImg"
-                        />
-                        <span className="rightbarFollowingName">John Carter</span>
-                    </div>
+                    {
+                        userFriends?.following?.map((u) => (
+
+
+                            <Link to={`/Profile/${u?._id}`} style={{
+                                textDecoration: "none",
+                                color: "black"
+                            }}>
+                                <div className="rightbarFollowing">
+                                    <img
+                                        src="/assets/post/1.jpeg"
+                                        alt=""
+                                        className="rightbarFollowingImg"
+                                    />
+                                    <span className="rightbarFollowingName">{u?.name}</span>
+                                </div>
+                            </Link>
+                        ))
+                    }
+                </div>
+
+                <h4 className="rightbarTitle">User Followers</h4>
+                <div className="rightbarFollowings">
+                    {
+                        userFriends?.followers?.map((u) => (
+
+
+                            <Link to={`/Profile/${u?._id}`} style={{
+                                textDecoration: "none",
+                                color: "black"
+                            }}>
+                                <div className="rightbarFollowing">
+                                    <img
+                                        src="/assets/post/1.jpeg"
+                                        alt=""
+                                        className="rightbarFollowingImg"
+                                    />
+                                    <span className="rightbarFollowingName">{u?.name}</span>
+                                </div>
+                            </Link>
+                        ))
+                    }
                 </div>
             </>
         );
@@ -146,12 +148,12 @@ const RightBar = ({ profile }) => {
     return (
         <div className="rightbar">
             <div className="rightBarWrapper">
-              { profile ?  <ProfileRightBar/> : <HomeRightBar/> }
+                {profile ? <ProfileRightBar /> : <HomeRightBar />}
             </div>
         </div>
     );
 
-    
+
 }
 
 export default RightBar

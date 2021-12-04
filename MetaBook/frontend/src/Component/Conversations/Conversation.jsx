@@ -3,30 +3,61 @@ import React, { useEffect, useState } from 'react';
 import { API } from '../../API';
 import './Conversation.css';
 
-const Conversation = ({conversation,user}) => {
+const Conversation = ({conversation,currentUser}) => {
 
-    const[user,setUser] = useState(null);
+    const[users,setUsers] = useState(null);
 
     
     useEffect(()=>{
-        const id = conversation.members.find((m)=>m!==user._id);
-        const getUser = async()=>{
-            try{
-                const response = await axios.get(`${API}/user?id=${id}`);
-                console.log(response);
-                setUser(response.data);
-            }catch(e){
-                console.log(e);
-            }
-        }
-        getUser();
-    },[conversation,user]);
+        const id = conversation.members.find((m)=>m._id!==currentUser._id);
+       
+        // const getUser = async()=>{
+        //     console.log(id)
+        //     try{
+        //         const response = await axios.get(`${API}/getUserData/${id._id}`,{
+        //             headers:{
+        //                 "Authorization":localStorage.getItem("jwt")
+        //             }
+        //         });
+        //         console.log(response);
+        //         setUsers(response.data);
+        //     }catch(e){
+        //         console.log(e);
+        //     }
+        // }
+        // getUser();
+
+        setUsers(id);
+    },[conversation,currentUser]);
+
+
+    useEffect(()=>{
+        const id = conversation.members.find((m)=>m._id!==currentUser._id);
+       
+        // const getUser = async()=>{
+        //     console.log(id)
+        //     try{
+        //         const response = await axios.get(`${API}/getUserData/${id._id}`,{
+        //             headers:{
+        //                 "Authorization":localStorage.getItem("jwt")
+        //             }
+        //         });
+        //         console.log(response);
+        //         setUsers(response.data);
+        //     }catch(e){
+        //         console.log(e);
+        //     }
+        // }
+        // getUser();
+
+        setUsers(id);
+    },[]);
 
     return (
         <div className="conversation">
-            <img src={user?.profilePicture} className="conversationImg" alt=""/>
+            <img src={ users?.profilePicture ? users?.profilePicture : "/assets/noAvatar.png"} className="conversationImg" alt=""/>
             <span className="conversationName">
-               {user?.name}
+               {users?.name}
             </span>
         </div>
     )

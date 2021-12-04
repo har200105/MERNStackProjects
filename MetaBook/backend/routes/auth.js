@@ -11,7 +11,8 @@ const key = "Shiddat";
 
 
 router.post("/signup", async(req, res) => {
-    const { email, password,name,profilePicture,coverPicture,bio,country,city} = req.body;
+    console.log(req.body);
+    const { email, password,name,profilePicture,coverPicture,bio} = req.body;
     if (!email || !password || !name) {
         return res.status(422).json({ error: "Add all the data" });
     }
@@ -20,7 +21,7 @@ router.post("/signup", async(req, res) => {
             return res.status(422).json({ error: "User Already Exists" });
         }
         b.hash(password, 8)
-            .then(hashedpassword => {
+            .then(async(hashedpassword) => {
                 const user = new User({
                     email,
                     password: hashedpassword,
@@ -28,13 +29,11 @@ router.post("/signup", async(req, res) => {
                     profilePicture,
                     coverPicture,
                     bio,
-                    country,
-                    city
                 })
 
-                user.save()
-                    .then((user) => {
-                        res.json({ message: "User Saved Successfully"})
+                await user.save()
+                    .then((data) => {
+                        res.status(201).json({ message: "User Saved Successfully"})
                     })
                     .catch(err => {
                         console.log(err)
@@ -60,8 +59,8 @@ router.post("/login", async(req, res) => {
                 .then(doMatch => {
                     if (doMatch) {
                         const token = jwt.sign({ _id: SavedUser._id }, process.env.JWT_KEY)
-                        const { _id, name, email, followers, following, pic } = SavedUser;
-                        return res.json({ token, user: { _id, name, email, followers, following, pic } });
+                        const { _id, name, email, followers, following, profilePicture } = SavedUser;
+                        return res.json({ token, user: { _id, name, email, followers, following, profilePicture } });
                     } else {
                         return res.status(422).json({ error: 'Invalid Email or Password' })
                     }
@@ -89,7 +88,6 @@ router.get('/generateOtp',async(req,res)=>{
     console.log(otp);
 
     return checkOtp(null,fullhash);
-
 
 });
 

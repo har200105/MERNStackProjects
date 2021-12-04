@@ -11,7 +11,7 @@ const Signup = () => {
     const confirmPassword = useRef();
     const navigate = useNavigate();
     
-    const handleClick = (e) =>{
+    const handleClick = async(e) =>{
         if(confirmPassword.current.value !== password.current.value){
             confirmPassword.current.setCustomValidity("Passwords Don't Match")
         }else{
@@ -21,7 +21,7 @@ const Signup = () => {
                 password:password.current.value
             }
             try{
-            const response = await axios.post(`${API}/signup`);
+            const response = await axios.post(`${API}/signup`,user);
             if(response.status===201){
                 navigate("/");
             }
@@ -49,7 +49,7 @@ const Signup = () => {
                             <input placeholder="Password" required className="loginInput" ref={password} type="password" />
                             <input placeholder="Confirm Password" required className="loginInput" ref={confirmPassword} type="password" />
                             <button className="loginButton" type="submit" onClick={handleClick} >Sign Up</button>
-                            <button className="loginRegisterButton">
+                            <button className="loginRegisterButton" onClick={()=>navigate("/")}>
                                 Log into Account
                             </button>
                         </div>

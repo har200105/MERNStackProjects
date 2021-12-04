@@ -4,6 +4,8 @@ import {format} from 'timeago.js';
 
 
 const Message = ({message,own}) => {
+    // console.log(message);
+    // console.log(own)
     return (
         <div className={own ? "message own" :"message"}>
             <div className="messageTop">
@@ -22,4 +24,4 @@ const Message = ({message,own}) => {
     )
 }
 
-export default Message
+export default Message;

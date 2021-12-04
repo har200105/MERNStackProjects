@@ -42,9 +42,24 @@
 }
 
 .profileInfoDesc{
-    font-weight: 300;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-right: 2px;
 }
 
 .profileRightBottom{
     display: flex;
+}
+
+
+.followButton{
+    height: 40px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: none;
+    background-color: #1775ee;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
 }

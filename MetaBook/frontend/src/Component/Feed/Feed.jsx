@@ -1,43 +1,56 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Post from "../Post/Post";
 import Share from "../Share/Share";
-import "./Feed.css"; 
+import "./Feed.css";
 import axios from 'axios';
 import { API } from "../../API";
+import { AuthContext } from "../../context/AuthContext";
 
-const Feed = ({userid}) => {
-    
-    const[posts,setPosts] = useState([]);
-    
-    const fetchTimeLinePosts = async()=>{
-        const posts =  userid ? await axios.get(`${API}/getUserPosts/${userid}`,{
-            headers:{
-                "Authorization":localStorage.getItem("jwt")
+const Feed = ({ id }) => {
+
+    const [posts, setPosts] = useState([]);
+    const { user } = useContext(AuthContext);
+
+    const fetchTimeLinePosts = async () => {
+        const posts = id ? await axios.get(`${API}/getUserPosts/${id}`, {
+            headers: {
+                "Authorization": localStorage.getItem("jwt")
             }
-        }) : await axios.get(`${API}/getTimeLinePosts`,{
-            headers:{
-                "Authorization":localStorage.getItem("jwt")
+        }) : await axios.get(`${API}/getTimeLinePosts`, {
+            headers: {
+                "Authorization": localStorage.getItem("jwt")
             }
         })
-        
-        if(posts.status===201){
-            setPosts(posts)
+
+        if (posts.status === 201) {
+            console.log(posts);
+            setPosts(posts.data);
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchTimeLinePosts();
-    },[posts,userid]);
+    }, [id]);
 
     return (
         <div className="feed">
             <div className="feedWrapper">
-                <Share />
+
                 {
-                    posts.map((p)=>(
-                    <Post post={p}/>
+                    !id &&
+                    <Share />
+                }
+
+                {
+                    id === user?._id && <Share />
+                }
+
+                {
+                    posts?.map((p) => (
+                        <Post post={p} />
                     ))
                 }
+                
             </div>
         </div>
     )

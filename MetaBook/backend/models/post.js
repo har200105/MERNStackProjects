@@ -10,17 +10,16 @@ const postSchema = mongoose.Schema({
     
     caption:{
         type:String,
-        max:200
     },
     
     image:{
         type:String
     },
     
-    likes:{
+    likes:[{
         type:Schema.Types.ObjectId,
         ref:"User"
-    },
+    }],
 
     comments:[{
         commentedBy:{
@@ -30,25 +29,7 @@ const postSchema = mongoose.Schema({
         comment:{
             type:String,
             required:true
-        },
-        likes:[{
-            type:Schema.Types.ObjectId,
-            ref:"User"
-        }],
-        replies:[{
-            repliedBy:{
-                type:Schema.Types.ObjectId,
-                ref:"User"
-            },
-            reply:{
-                type:String,
-                required:true
-            },
-            likes:[{
-                type:Schema.Types.ObjectId,
-                ref:"User"
-            }],
-        }]
+        }
     }],
 
 
