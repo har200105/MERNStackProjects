@@ -5,10 +5,9 @@ import axios from "axios";
 import { API } from "../../API";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function Share() {
+export default function Share({change,newp}) {
   
   const description = useRef();
-  const [newp,setNewp]=useState(false);
   const {user} = useContext(AuthContext);
   const [file,setFile] = useState("");
   
@@ -39,11 +38,10 @@ export default function Share() {
         if(s.status===201){
         description.current.value="";
         setFile("");
-        file="";
-        console.log(s)
-        setNewp(!newp);
-      }
-
+        console.log(s);
+        window.location.reload();
+        change(!newp);
+    }
       })
   }
 

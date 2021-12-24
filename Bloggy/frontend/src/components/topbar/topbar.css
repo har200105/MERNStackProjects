@@ -9,6 +9,18 @@
   z-index: 999;
 }
 
+@media screen and (max-width: 480px) {
+  .top{
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home{
+  max-width: 300px;
+  }
+}
+
 .topLeft,
 .topRight {
   flex: 3;

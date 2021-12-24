@@ -14,24 +14,39 @@ import {
   Image,
 } from "@chakra-ui/react";
 import axios from 'axios';
-import {API} from '../../API';
+import { API } from '../../API';
 import { ChatState } from "../../Context/ChatProvider";
+import { getIsBlocked } from "../../config/ChatLogics";
 
 const ProfileModal = ({ users, children }) => {
-  
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
 
-  const blockUser = async() => {
-    const block = await axios.put(`${API}/api/user/${user._id}`,{},{
-      headers:{
+  const blockUser = async () => {
+    const block = await axios.put(`${API}/api/user/${users?._id}`, {}, {
+      headers: {
         Authorization: `${user.token}`
       }
     });
 
-    if(block.status===201){
+    if (block.status === 201) {
+      window.location.reload();
       console.log("Blocked OP xD");
+    }
+  }
+
+  const unBlockUser = async () => {
+    const block = await axios.put(`${API}/api/user/unblockUser/${users?._id}`, {}, {
+      headers: {
+        Authorization: `${user.token}`
+      }
+    });
+
+    if (block.status === 201) {
+      window.location.reload();
+      console.log("Blocked OP XD");
     }
   }
 
@@ -72,16 +87,25 @@ const ProfileModal = ({ users, children }) => {
             >
               Email: {users.email}
             </Text>
-            
+
           </ModalBody>
           <ModalFooter>
-            {/* {
-              user._id !== users._id ?
-          <Button onClick={blockUser}>
-              Block
-            </Button>
-             : ""
-            } */}
+
+            {
+              users?._id !== user._id &&
+              <div>
+                {
+                  selectedChat &&
+                    getIsBlocked(user, selectedChat?.users) ? <Button onClick={unBlockUser}>
+                    Unblock
+                  </Button>
+                    : <Button onClick={blockUser}>
+                      Block
+                    </Button>
+                }
+              </div>
+            }
+
             <Button onClick={onClose}>Close</Button>
           </ModalFooter>
         </ModalContent>

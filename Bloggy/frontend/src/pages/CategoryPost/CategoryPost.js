@@ -8,13 +8,13 @@ import "./CategoryPost.css";
 import { useParams } from "react-router";
 
 export default function CategoryPost() {
-  
+
   const dispatch = useDispatch();
   const poststate = useSelector(state => state.getPostCatReducer);
   const { loading, error, posts } = poststate;
   console.log(posts);
 
-  const {category} = useParams();
+  const { category } = useParams();
   console.log(category)
 
   useEffect(() => {
@@ -30,7 +30,10 @@ export default function CategoryPost() {
         {error && <div style={{
           color: "red"
         }}>Something Went Wrong !!</div>}
-        <Posts posts={posts} />
+        {
+          posts.length === 0 ? <p>Sorry No Posts Available Currently</p> :
+            <Posts posts={posts} />
+        }
         <Sidebar />
       </div>
     </>

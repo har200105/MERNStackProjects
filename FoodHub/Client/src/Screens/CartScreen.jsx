@@ -64,7 +64,11 @@ const CartScreen = () => {
                     <Col md={4}>
                         <h1>Delivery Details</h1>
                         <h1>Rs {subTotal} /-</h1>
+                        <Button>Checkout</Button>
                         <Checkout/>
+                        <Button style={{
+                            marginLeft:"10px"
+                        }}>Cash on Delivery</Button>
                     </Col>
                 </Row>
             </Container>

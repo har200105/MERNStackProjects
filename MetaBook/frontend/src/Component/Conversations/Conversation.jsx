@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { API } from '../../API';
 import './Conversation.css';
 
-const Conversation = ({conversation,currentUser}) => {
+const Conversation = ({conversation,currentUser,next,setNext}) => {
 
-    const[users,setUsers] = useState(null);
+    // const[users,setUsers] = useState(null);
 
     
     useEffect(()=>{
@@ -27,7 +27,7 @@ const Conversation = ({conversation,currentUser}) => {
         // }
         // getUser();
 
-        setUsers(id);
+        setNext(id);
     },[conversation,currentUser]);
 
 
@@ -50,14 +50,14 @@ const Conversation = ({conversation,currentUser}) => {
         // }
         // getUser();
 
-        setUsers(id);
+        setNext(id);
     },[]);
 
     return (
         <div className="conversation">
-            <img src={ users?.profilePicture ? users?.profilePicture : "/assets/noAvatar.png"} className="conversationImg" alt=""/>
+            <img src={ next?.profilePicture ? next?.profilePicture : "/assets/noAvatar.png"} className="conversationImg" alt=""/>
             <span className="conversationName">
-               {users?.name}
+               {next?.name}
             </span>
         </div>
     )

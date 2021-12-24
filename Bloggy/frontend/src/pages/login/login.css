@@ -12,6 +12,12 @@
   background-size: cover;
 }
 
+@media screen and (max-width: 480px) {
+  .login{
+  max-width: 300px;
+  }
+}
+
 .loginTitle {
   font-size: 50px;
 }

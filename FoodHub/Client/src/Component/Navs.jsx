@@ -10,23 +10,9 @@ const Navs = () => {
         <>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>
-                    <Navbar.Brand href="#home">
-                        <Image src="images/logo.png"  alt="Logo" style={{
-                            height:"50px"
-                        }} />
-                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ms-auto">
-                            <LinkContainer to="/features">
-                            <Nav.Link>Features</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/Login">
-                            <Nav.Link>Login</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/Signup">
-                            <Nav.Link>Register</Nav.Link>
-                            </LinkContainer>
                             <LinkContainer to="/cart">
                             <Nav.Link>Cart {cartState.cartItems.length} </Nav.Link>
                             </LinkContainer>

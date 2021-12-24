@@ -53,7 +53,7 @@ router.post("/login", async(req, res) => {
     await User.findOne({ email: email })
         .then(SavedUser => {
             if (!SavedUser) {
-                return res.status(422).json({ error: "Invalid Data" })
+                return res.json({ error: "Invalid Data" })
             }
             b.compare(password, SavedUser.password)
                 .then(doMatch => {
@@ -62,7 +62,7 @@ router.post("/login", async(req, res) => {
                         const { _id, name, email, followers, following, profilePicture } = SavedUser;
                         return res.json({ token, user: { _id, name, email, followers, following, profilePicture } });
                     } else {
-                        return res.status(422).json({ error: 'Invalid Email or Password' })
+                        return res.json({ error: 'Invalid Email or Password' })
                     }
                 })
                 .catch(err => {

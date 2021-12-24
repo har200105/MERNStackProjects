@@ -11,6 +11,7 @@ import { ChatState } from "../Context/ChatProvider";
 import { API } from "../API";
 
 const MyChats = ({ fetchAgain }) => {
+
   const [loggedUser, setLoggedUser] = useState();
 
   const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
@@ -20,14 +21,12 @@ const MyChats = ({ fetchAgain }) => {
   const fetchChats = async () => {
 
     try {
-
-
       const { data } = await axios.get(`${API}/api/chat`, {
         headers: {
           Authorization: `${user.token}`,
         },
       });
-      console.log(data)
+      console.log(data);
       setChats(data);
     } catch (error) {
       toast({
@@ -39,7 +38,8 @@ const MyChats = ({ fetchAgain }) => {
         position: "bottom-left",
       });
     }
-  };
+    
+  }
 
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));

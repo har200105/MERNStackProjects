@@ -14,6 +14,6 @@ router.route("/").get(protect, allUsers);
 router.route("/").post(registerUser);
 router.post("/login", authUser);
 router.route("/:id").put(protect,blockUser);
-router.put("/unblockUser/:id",unblockUser);
+router.put("/unblockUser/:id",protect,unblockUser);
 
 module.exports = router;

@@ -10,38 +10,64 @@ cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
-  });
+});
   
   
   
 
 router.put("/editProfile", reqLogin, async (req, res) => {
     try {
-        // if(req.body.profilePicutre){
-        //     cloudinary.v2.uploader.upload(req.body.profilePicutre, {
+        let profilePicture = req.body.profilePicture;
+        let coverPicture = req.body.coverPicture;
+        
+        // if(profilePicture){
+        //     cloudinary.v2.uploader.upload(profilePicture, {
         //         folder: "Shiddat",
         //         width: 150,
         //         crop: "scale"
-        //       }).then((s)=>{
-        //           req.body.profilePicture=s.secure_url;
+        //       }).then(async(ds)=>{
+        //           req.body.profilePicture =  ds.secure_url;
         //       })
+
+        //       const user = await User.findByIdAndUpdate(req.user._id, {
+        //         $set: req.body
+        //     });
+        //     if (user) {
+        //         res.status(201).json({ message: "Account Has Been Updated" })
+        //     }
         // }
 
-        // if(req.body.coverPicture){
-        //     cloudinary.v2.uploader.upload(req.body.coverPicture, {
+        // if(coverPicture){
+
+        //     cloudinary.v2.uploader.upload(coverPicture, {
         //         folder: "Shiddat",
         //         width: 150,
         //         crop: "scale"
-        //       }).then((s)=>{
-        //           req.body.coverPicture=s.secure_url;
+        //       }).then(async(ds)=>{
+        //           req.body.coverPicture =  ds.secure_url;
         //       })
+
+        //       const user = await User.findByIdAndUpdate(req.user._id, {
+        //         $set: req.body
+        //     });
+        //     if (user) {
+        //         res.status(201).json({ message: "Account Has Been Updated" })
+        //     }
         // }
-        const user = await User.findByIdAndUpdate(req.user._id, {
-            $set: req.body
-        });
-        if (user) {
-            res.status(201).json({ message: "Account Has Been Updated" })
-        }
+
+
+
+        // if(!profilePicture || !coverPicture){
+            const user = await User.findByIdAndUpdate(req.user._id, {
+                $set: req.body
+            });
+            if (user) {
+                res.status(201).json({ message: "Account Has Been Updated" })
+            }
+        // }
+
+
+    
     } catch (e) {
         return res.status(422).json(e);
     }
@@ -120,7 +146,6 @@ router.get('/getUserPosts/:id', reqLogin, async (req, res) => {
             .populate("postedBy", "name email profilePicture coverPicture")
             .populate("comments.commentedBy", "name email profilePicture _id")
             .sort("-createdAt").then((a) => {
-                // console.log(a)
                 res.status(201).json(a)
             })
 

@@ -5,11 +5,15 @@ import "./Feed.css";
 import axios from 'axios';
 import { API } from "../../API";
 import { AuthContext } from "../../context/AuthContext";
+import {useDispatch,useSelector} from 'react-redux';
 
 const Feed = ({ id }) => {
 
     const [posts, setPosts] = useState([]);
     const { user } = useContext(AuthContext);
+    const [newp,setNewp]=useState(false);
+
+    const dispatch = useDispatch();
 
     const fetchTimeLinePosts = async () => {
         const posts = id ? await axios.get(`${API}/getUserPosts/${id}`, {
@@ -28,9 +32,13 @@ const Feed = ({ id }) => {
         }
     }
 
+
+    // const poststate = useState(state=>state.getPostsReducer);
+
+
     useEffect(() => {
         fetchTimeLinePosts();
-    }, [id]);
+    }, [id,newp]);
 
     return (
         <div className="feed">
@@ -38,16 +46,15 @@ const Feed = ({ id }) => {
 
                 {
                     !id &&
-                    <Share />
+                    <Share  change={setNewp} newp={newp}/>
                 }
 
                 {
-                    id === user?._id && <Share />
+                    id === user?._id && <Share change={setNewp} newp={newp}/>
                 }
-
                 {
                     posts?.map((p) => (
-                        <Post post={p} />
+                        <Post post={p} fetchTimeLinePosts={fetchTimeLinePosts} />
                     ))
                 }
                 

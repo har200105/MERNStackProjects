@@ -168,10 +168,8 @@ const GroupChatModal = ({ children }) => {
               <div>Loading...</div>
             ) : (
               searchResult
-              // ?.filter(s=>s._id!==user.blockedUsers).filter(p=>p._id!==user.blockedBy)
                 ?.slice(0, 4)
                 .map((user) => (
-
                   <UserListItem
                     key={user._id}
                     user={user}

@@ -147,7 +147,7 @@ export default function SinglePost() {
              onChange={(e)=>setCmt(e.target.value)}
              value={cmt}
             id="comments" 
-            style={{fontFamily:"sans-serif" , fontSize:"1.2em" ,outline:"none",
+            style={{outline:"none",
         width:"700px",
         height:"50px"
           }}/>

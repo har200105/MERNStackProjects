@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URL = "mongodb+srv://harshit:harshit@cluster0.aryql.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const URL = "mongodb+srv://harshit:harshit@cluster0.azk3m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
 const Connection = async() => {

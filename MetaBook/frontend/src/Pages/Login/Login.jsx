@@ -34,8 +34,10 @@ const Login = () => {
                              required type="password" minLength="8"
                                ref={password}
                              />
+                             <p style={{
+                                 color:"red"
+                             }}>{error && "Invalid Credentials"}</p>
                             <button className="loginButton" onClick={handleLogin} >{isFetching ? <CircularProgress/> : "Log In" }</button>
-                            <span className="loginForgot">Forgot Password?</span>
                             <button className="loginRegisterButton" onClick={()=>navigate("/Signup")}>
                                 Create a New Account
                             </button>

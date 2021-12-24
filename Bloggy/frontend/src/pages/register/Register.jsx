@@ -3,6 +3,12 @@ import "./register.css";
 import axios from 'axios';
 import { API } from '../../API';
 import { Link } from "react-router-dom";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default function Register() {
 
@@ -14,14 +20,23 @@ export default function Register() {
   const passwordRef = useRef();
 
   const [profileImg,setProfileImg] = useState();
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+       setOpen(true);
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {return;}
+      setOpen(false);
+  }
+
 
   const readImage = (e) =>{
     console.log(e);
     const reader = new FileReader();
     reader.onload = () =>{
-      if(reader.readyState===2){
-        setProfileImg(reader.result);
-      }
+      if(reader.readyState===2){setProfileImg(reader.result);}
     }
     reader.readAsDataURL(e.target.files[0]) 
   }
@@ -50,6 +65,7 @@ export default function Register() {
         password: passwordRef.current.value,
         file:profileImg
       });
+      res.status === 201 &&  handleClick();
       res.status === 201 && window.location.replace("/login");
       res.status === 401 && setError(res.data.error)
       
@@ -80,6 +96,11 @@ export default function Register() {
       </form>
       <Link to="/login" className="registerLoginButton">Login</Link>
       <p style={{color:"red"}}>{msg}</p>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="info">
+            Signuped Successfully
+          </Alert>
+        </Snackbar>
     </div>
   )
 }

@@ -4,3 +4,10 @@
 .feedWrapper{
     padding: 20px;
 }
+
+
+@media screen and (max-width:768px) {
+    .feed{
+        flex: 12 !important;
+    }
+}

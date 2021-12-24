@@ -7,6 +7,25 @@
   padding: 20px;
 }
 
+.data{
+  font-size: auto;
+}
+
+
+@media screen and (max-width: 480px) {
+  .data{
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .data{
+    font-size: medium;
+  }
+}
+
+
+
 .settingsTitle {
   display: flex;
   align-items: center;
@@ -43,6 +62,31 @@
   border-radius: 20px;
   object-fit: cover;
 }
+
+@media screen and (max-width:768px) {
+  .settingsPP > img {
+    padding-right: 20px !important;
+  }
+  
+}
+
+
+@media screen and (max-width:480px) {
+  .settingsPP > img {
+    padding-right: 20px !important;
+  }
+}
+
+
+
+@media screen and (max-width:250px) {
+  .settingsPP > img {
+    padding-right: 20px !important;
+  }
+}
+
+
+
 
 .settingsPPIcon {
   width: 25px;

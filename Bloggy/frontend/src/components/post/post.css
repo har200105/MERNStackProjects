@@ -12,6 +12,28 @@
   border-radius: 7px;
 }
 
+
+@media screen and (max-width: 480px) {
+  .post{
+    width: 120px;
+  }
+
+  .postImg{
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post{
+    width: 250px;
+  }
+
+  .postImg{
+    width: 250px;
+  }
+}
+
+
 .postInfo {
   display: flex;
   flex-direction: column;

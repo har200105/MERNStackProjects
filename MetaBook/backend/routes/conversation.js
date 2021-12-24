@@ -3,10 +3,8 @@ const Conversation = require('../models/Conversation');
 const reqLogin = require('../middleware/reqLogin');
 
 router.post("/addConversation/:id",reqLogin,async(req,res)=>{
-    // console.log(req.params.id + "xd")
     const findConv = await Conversation.findOne({$and:[{members:{$in:[req.params.id]}},{members:{$in:[req.user._id]}}]})
     .populate("members","name email profilePicture");
-    // console.log(findConv);
     if(findConv){
       return res.status(201).json(findConv)
     }else{
@@ -17,7 +15,6 @@ router.post("/addConversation/:id",reqLogin,async(req,res)=>{
           await Conversation.findById(s._id)
           .populate("members","name email profilePicture").then((da)=>{
             console.log("daa")
-            // console.log(da)
             res.status(201).json(da);
           })
         });

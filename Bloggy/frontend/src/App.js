@@ -18,7 +18,7 @@ function App() {
     <BrowserRouter>
       <Topbar />
       <Routes>
-        <Route exact path="/" element={<Homepage />}>
+        <Route exact path="/" element={user ?   <Homepage/> : <Login />}>
         </Route>
       </Routes>
       <Routes>
@@ -29,7 +29,7 @@ function App() {
         <Route path="/login" element={user ? <Homepage /> : <Login />}></Route>
       </Routes>
       <Routes>
-        <Route path="/post/:id" element={<Single />}>
+        <Route path="/post/:id" element={user ? <Single /> : <Login/>}>
         </Route>
       </Routes>
       <Routes>

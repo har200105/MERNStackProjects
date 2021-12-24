@@ -52,13 +52,13 @@ const RightBar = ({ profile, id }) => {
             <>
                 <h4 className="rightBarTitle">Online Users</h4>
                 <ul className="rightBarFriendList">
-                    
+
                     {
                         onlines?.map((o) => (
                             o._id !== user._id &&
                             <Link to={`/Messenger/?${o._id}`} style={{
-                                textDecoration:"none",
-                                color:"black"
+                                textDecoration: "none",
+                                color: "black"
                             }}>
                                 <li className="rightBarFriend">
                                     <div className="rightBarProfileImgContainer">
@@ -70,7 +70,7 @@ const RightBar = ({ profile, id }) => {
                             </Link>
                         ))
                     }
-                    
+
                 </ul>
             </>
         );
@@ -101,19 +101,25 @@ const RightBar = ({ profile, id }) => {
                         userFriends?.following?.map((u) => (
 
 
-                            <Link to={`/Profile/${u?._id}`} style={{
-                                textDecoration: "none",
-                                color: "black"
-                            }}>
-                                <div className="rightbarFollowing">
+
+                            <div className="rightbarFollowing">
+                                <Link to={`/Profile/${u?._id}`} style={{
+                                    textDecoration: "none",
+                                    color: "black"
+                                }}>
                                     <img
-                                        src="/assets/post/1.jpeg"
+                                        src={u?.profilePicture ? u.profilePicture : "/assets/noAvatar.png"}
                                         alt=""
                                         className="rightbarFollowingImg"
                                     />
+                                </Link>
+                                <Link to={`/Profile/${u?._id}`} style={{
+                                    textDecoration: "none",
+                                    color: "black"
+                                }}>
                                     <span className="rightbarFollowingName">{u?.name}</span>
-                                </div>
-                            </Link>
+                                </Link>
+                            </div>
                         ))
                     }
                 </div>
@@ -124,19 +130,26 @@ const RightBar = ({ profile, id }) => {
                         userFriends?.followers?.map((u) => (
 
 
-                            <Link to={`/Profile/${u?._id}`} style={{
-                                textDecoration: "none",
-                                color: "black"
-                            }}>
-                                <div className="rightbarFollowing">
+
+                            <div className="rightbarFollowing">
+                                <Link to={`/Profile/${u?._id}`} style={{
+                                    textDecoration: "none",
+                                    color: "black"
+                                }}>
                                     <img
-                                        src="/assets/post/1.jpeg"
+                                        src={u?.profilePicture ? u.profilePicture : "/assets/noAvatar.png"}
                                         alt=""
                                         className="rightbarFollowingImg"
                                     />
+                                </Link>
+                                <Link to={`/Profile/${u?._id}`} style={{
+                                    textDecoration: "none",
+                                    color: "black"
+                                }}>
                                     <span className="rightbarFollowingName">{u?.name}</span>
-                                </div>
-                            </Link>
+                                </Link>
+                            </div>
+
                         ))
                     }
                 </div>

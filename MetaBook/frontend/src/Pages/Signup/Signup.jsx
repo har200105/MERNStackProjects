@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { API } from '../../API';
 import './Signup.css';
@@ -9,12 +9,28 @@ const Signup = () => {
     const password = useRef();
     const name = useRef();
     const confirmPassword = useRef();
+    const [error,setError] =  useState([]);
     const navigate = useNavigate();
     
     const handleClick = async(e) =>{
+      
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.current.value))){
+            setError("Invalid Email Address");
+            return;
+        }
+
         if(confirmPassword.current.value !== password.current.value){
-            confirmPassword.current.setCustomValidity("Passwords Don't Match")
-        }else{
+            confirmPassword.current.setCustomValidity("Passwords Don't Match");
+            setError("Passwords Don't Match");
+            return;
+        }
+
+        if(confirmPassword.current.value.length < 6){
+            setError("Password Should be of minimum 6 Length");
+            return;
+        }
+        
+        else{
             const user={
                 name:name.current.value,
                 email:email.current.value,
@@ -25,8 +41,9 @@ const Signup = () => {
             if(response.status===201){
                 navigate("/");
             }
-
+            console.log(response.data)
         }catch(e){
+            setError("User Already Exists");
             console.log(e)
         }
     }
@@ -49,6 +66,9 @@ const Signup = () => {
                             <input placeholder="Password" required className="loginInput" ref={password} type="password" />
                             <input placeholder="Confirm Password" required className="loginInput" ref={confirmPassword} type="password" />
                             <button className="loginButton" type="submit" onClick={handleClick} >Sign Up</button>
+                            <p style={{
+                                 color:"red"
+                             }}>{error}</p>
                             <button className="loginRegisterButton" onClick={()=>navigate("/")}>
                                 Log into Account
                             </button>

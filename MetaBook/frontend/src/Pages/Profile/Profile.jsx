@@ -71,12 +71,12 @@ const Profile = () => {
             coverPicture: cover,
             name,
             bio
-        },{
-            headers:{
+        }, {
+            headers: {
                 "Authorization": localStorage.getItem("jwt")
             }
-        }).then((s)=>{
-            if(s.status===201){
+        }).then((s) => {
+            if (s.status === 201) {
                 getUserData();
                 window.location.reload();
             }
@@ -101,15 +101,6 @@ const Profile = () => {
             }
         });
     }
-    // await axios.get(`${API}/getUserFollowers/${id}`,{
-    //     headers:{
-    //         "Authorization":localStorage.getItem("jwt")
-    //     }
-    // }).then((u)=>{
-    //     if(u.status===201){
-    //         setUserFollowing(u.data);
-    //     }
-    // })
 
     const followUser = async (e) => {
         await axios.put(`${API}/followUser/${id}`, {
@@ -150,69 +141,75 @@ const Profile = () => {
         <>
             <Topbar />
             <div className="profile">
-                {/* <Sidebar /> */}
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
                             <img
                                 className="profileCoverImg"
-                                src={userdata?.coverPicture ? userdata?.coverPicture : ""}
+                                src={userdata?.coverPicture ? userdata?.coverPicture : "/assets/post/8.jpeg"}
                                 alt=""
                             />
                             <img
                                 className="profileUserImg"
-                                src={userdata?.profilePicture ? userdata?.profilePicture : ""}
+                                src={userdata?.profilePicture ? userdata?.profilePicture : "/assets/noAvatar.png"}
                                 alt=""
                             />
                         </div>
                         <div className="profileInfo">
                             <h4 className="profileInfoName">{userdata?.name}</h4>
                             <span className="profileInfoDesc">
-                               {userdata?.bio ? userdata.bio : ""}
+                                {userdata?.bio ? userdata.bio : ""}
                             </span>
+                            {
+                                userdata?._id === user?._id &&
+                             <div>   
                             <button className="shareButton" onClick={handleClickOpen}>
                                 Edit Profile
                             </button>
-                            <Dialog open={open} onClose={handleClose}>
-                                <DialogTitle>Edit Profile</DialogTitle>
-                                <DialogContent>
+                     
 
-                                    <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="Name"
-                                        type="text"
-                                        fullWidth
-                                        variant="standard"
-                                        onChange={(e) => setName(e.target.value)}
-                                    />
+                                <Dialog open={open} onClose={handleClose}>
+                                    <DialogTitle>Edit Profile</DialogTitle>
+                                    <DialogContent>
 
-                                    <TextField
-                                        autoFocus
-                                        margin="dense"
-                                        id="Bio"
-                                        label="Bio"
-                                        type="text"
-                                        fullWidth
-                                        variant="standard"
-                                        onChange={(e) => setBio(e.target.value)}
-                                    />
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="name"
+                                            label="Name"
+                                            type="text"
+                                            fullWidth
+                                            variant="standard"
+                                            onChange={(e) => setName(e.target.value)}
+                                        />
 
-                                    <label htmlFor="profilepic">
-                                        <AddAPhotoIcon style={{ marginTop: "15px", marginLeft: "5px" }} />
-                                    </label>
-                                    <label style={{ marginLeft: "5px" }} htmlFor="coverpic">
-                                        <AddPhotoAlternateIcon />
-                                    </label>
-                                    <input type="file" id="profilepic" style={{ display: "none" }} onChange={readImage} />
-                                    <input type="file" id="coverpic" style={{ display: "none" }} onChange={readCoverImage} />
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={handleClose}>Cancel</Button>
-                                    <Button onClick={EditProfile}>Done</Button>
-                                </DialogActions>
-                            </Dialog>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="Bio"
+                                            label="Bio"
+                                            type="text"
+                                            fullWidth
+                                            variant="standard"
+                                            onChange={(e) => setBio(e.target.value)}
+                                        />
+
+                                        <label htmlFor="profilepic">
+                                            <AddAPhotoIcon style={{ marginTop: "15px", marginLeft: "5px" }} />
+                                        </label>
+                                        <label style={{ marginLeft: "5px" }} htmlFor="coverpic">
+                                            <AddPhotoAlternateIcon />
+                                        </label>
+                                        <input type="file" id="profilepic" style={{ display: "none" }} onChange={readImage} />
+                                        <input type="file" id="coverpic" style={{ display: "none" }} onChange={readCoverImage} />
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>Cancel</Button>
+                                        <Button onClick={EditProfile}>Done</Button>
+                                    </DialogActions>
+                                </Dialog>
+                                </div>
+                            }
                             {
                                 (user?._id !== id) &&
 

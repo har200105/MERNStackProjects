@@ -2,12 +2,48 @@
   padding-top: 50px;
 }
 
+
 .writeImg {
   margin-left: 150px;
   width: 70vw;
   height: 250px;
   border-radius: 10px;
   object-fit: cover;
+}
+
+
+
+@media screen and (max-width: 480px) {
+  .write{
+  padding-top: 80px;
+  }
+
+  .news{
+    width: 50px;
+    margin-left: 50%;
+  }
+
+  .writeSubmit{
+    right:20px;
+    margin-left: 20px;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .write{
+    padding-top: 80px;
+    }
+
+    .news{
+      width: 30px;
+      margin-left: 50%;
+    }
+
+    .writeSubmit{
+      right:20px;
+      margin-left: 20px;
+    }
 }
 
 .writeForm {
@@ -47,6 +83,13 @@
 
 .writeInput:focus {
   outline-style: none;
+}
+
+
+.news{
+  margin-left: 20px;
+  width: 150px;
+  margin-bottom: 20px;
 }
 
 .writeText {

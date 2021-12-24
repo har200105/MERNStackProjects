@@ -13,37 +13,11 @@ const allUsers = asyncHandler(async (req, res) => {
     }
     : {};
 
-//   let userPattern = new RegExp("^" + req.body.query);
-//  const users =  await User.find({$and:[{ name: { $regex: userPattern }},
-//     {$or:[{$not:{_id:{$in:[req.user.blockedBy]}}},{$not:{_id:{$in:[req.user.blockedUsers]}}}]}]})
-// let s = [];
-  const users = await User.find(keyword).find({_id: { $ne:[ req.user._id]}});
-  console.log(users.length)
-
-
-  // for(var i=0;i<users.length;i++){
-  //   if(!(req.user.blockedUsers.includes(users[i]._id)) &&
-  //    !(req.user.blockedBy.includes(users[i]._id))){
-  //     s.push(users[i]);
-  //   }else{
-
-  //   }
-  // }
-
-  // console.log(s)
-
-  // await users.forEach(async(d)=>{
-  //   await User.find({$or:[{d:{$in:[req.user.blockedUsers]}},{d:{$in:[req.user.blockedBy]}}]})
-  //   .then((sp)=>{
-  //     ubs.push(sp)
-  //   })
-  // });
-
-
-
-
-
-  // console.log(users);
+  const users = await User.find(keyword).find({$and:[{_id: { $ne: req.user._id }},
+    {blockedBy:{$nin:[req.user._id]}},{blockedUsers:{$nin:[req.user._id]}}]});
+//  .find({_id:{$not:{$in:[req.user.blockedBy]}}})
+//  .find({_id:{$not:{$in:[req.user.blockedUsers]}}});
+  console.log(users);
   res.status(201).json(users);
 });
 
@@ -118,7 +92,8 @@ const blockUser = asyncHandler(async (req, res) => {
       $push: {
         blockedBy: req.user._id
       }
-    }).then((s) => {
+    },{new:true}).then((s) => {
+      console.log(s)
       res.status(201).json(s)
     })
   })
@@ -128,18 +103,26 @@ const blockUser = asyncHandler(async (req, res) => {
 
 
 const unblockUser = asyncHandler(async (req, res) => {
-
+  console.log(req.params.id + "wef");
+  console.log(req.user._id + "qece");
   await User.findByIdAndUpdate(req.user._id, {
     $pull: {
       blockedUsers: req.params.id
     }
-  });
+  }).then(async(a)=>{
+
+    console.log("A");
+    console.log(a)
 
   await User.findByIdAndUpdate(req.params.id, {
     $pull: {
       blockedBy: req.user._id
     }
+  }).then((s)=>{
+    console.log(s)
+    res.status(201).json(s)
   })
+});
 });
 
 module.exports = { allUsers, registerUser, authUser, blockUser, unblockUser };

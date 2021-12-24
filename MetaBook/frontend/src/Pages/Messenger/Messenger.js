@@ -134,7 +134,7 @@ export default function Messenger() {
             } catch (err) {
                 console.log(err);
             }
-        };
+        }
         getMessages();
     }, [currentChat]);
 
@@ -189,7 +189,7 @@ export default function Messenger() {
                         }}>Chats</h4>
                         {conversations.map((c) => (
                             <div onClick={() => setCurrentChat(c)}>
-                                <Conversation conversation={c} currentUser={user} />
+                                <Conversation conversation={c} currentUser={user} next={nextusers} setNext={setnextUsers}/>
                             </div>
                         ))}
                     </div>
@@ -206,7 +206,7 @@ export default function Messenger() {
                             padding:"10px"
 
                         }}>
-                            <img src="/assets/noAvatar.png" alt="" style={{
+                            <img src={ nextusers?.profilePicture ? nextusers?.profilePicture : "/assets/noAvatar.png"} alt="" style={{
                                 width: "50px",
                                 height: "50px",
                                 borderRadius: "50%"

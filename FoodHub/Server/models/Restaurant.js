@@ -7,7 +7,6 @@ const restaurantSchema = mongoose.Schema({
         type:String,
         required:true
     },
-
     restaurantAddress:{
         type:String,
         required:true
@@ -28,8 +27,9 @@ const restaurantSchema = mongoose.Schema({
         type:Schema.Types.ObjectId,
         ref:"User"
     },
-    restaurantGeolocation:{
-
+    isAccepted:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true});
 

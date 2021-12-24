@@ -47,7 +47,7 @@ router.post('/addOrder', reqLogin, async (req, res) => {
 });
 
 
-router.get('/orderuser', reqLogin, async (req, res) => {
+router.get('/ordersOfuser', reqLogin, async (req, res) => {
     try {
         const userOrders = await Order.find({ OrderedBy: req.user._id })
         .populate("foodOrdered","foodname foodDescription category")
@@ -59,6 +59,19 @@ router.get('/orderuser', reqLogin, async (req, res) => {
 
     }
 });
+
+
+router.put('/deliverOrder/:id',reqLogin,async(req,res)=>{
+    try{
+        await Order.findByIdAndUpdate(req.params.id,{
+            isDelivered:true
+        },{new:true}).then((s)=>{
+            res.status(201).json(s)
+        })
+    }catch(e){
+        
+    }
+})
 
 
 module.exports = router;

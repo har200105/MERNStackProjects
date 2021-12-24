@@ -2,7 +2,7 @@ export const isSameSenderMargin = (messages, m, i, userId) => {
 
   if (
     i < messages.length - 1 &&
-    messages[i + 1].sender?._id === m.sender?._id &&
+    messages[i + 1].sender._id === m.sender._id &&
     messages[i].sender._id !== userId
   )
     return 33;
@@ -38,9 +38,19 @@ export const isSameUser = (messages, m, i) => {
 };
 
 export const getSender = (loggedUser, users) => {
-  return users[0]?._id === loggedUser?._id ? users[1].name : users[0]?.name;
+  return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 
 export const getSenderFull = (loggedUser, users) => {
   return users[0]._id === loggedUser._id ? users[1] : users[0];
 };
+
+
+export const getIsBlocked = (loggedUser,users) =>{
+  const currentUser  = users[0]._id === loggedUser._id ? users[0] : users[1];
+  const nextUser =  users[0]._id === loggedUser._id ? users[1] : users[0];
+  if(currentUser.blockedUsers.includes(nextUser._id) ||currentUser.blockedBy.includes(nextUser._id)){
+    return true;
+  }
+  return false;
+}

@@ -44,6 +44,25 @@
     border: none;
     width: 70%;
   }
+
+  @media screen and (max-width:768px) {
+    .searchInput{
+      display: none;
+    }
+    .searchbar{
+      display: none;
+    }
+    .topbarContainer{
+      flex-direction: column !important;
+      width: 100%;
+      text-align: center;
+      height: 100%;
+    }
+    .topbarLink{
+      width: 100%;
+      float: none;
+    }
+  }
   
   .searchInput:focus {
     outline: none;

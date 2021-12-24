@@ -42,7 +42,7 @@ export default function EditProfile() {
             />
 
           </div>
-          <div>
+          <div className="data">
             <h3>User Details</h3>
             Name : {user.name}
             <br />

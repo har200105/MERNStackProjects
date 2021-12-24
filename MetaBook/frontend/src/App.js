@@ -13,7 +13,7 @@ function App() {
   return (
 
     <Router>
-    <Routes>
+      <Routes>
         <Route exact path="/" element={ user ? <Home /> : <Login/>}>
         </Route>
         <Route exact path="/Profile/:id" element={user ? <Profile /> : <Login/>}>

@@ -9,13 +9,17 @@ app.use(cors());
 const dotenv = require('dotenv');
 dotenv.config();
 const Connection = require('./database/Connection');
-// const Connection = require('./')
 
+// const Connection = require('./')
 // mongodb+srv://harshit:<password>@cluster0.tsv9l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 app.use(bodyParser({extended:true}));
 
 app.use('/',require('./routes/Food'));
+app.use('/',require('./routes/Order'));
+app.use('/',require('./routes/Restaurant'));
+app.use('/',require('./routes/User'));
+
 
 Connection();
 

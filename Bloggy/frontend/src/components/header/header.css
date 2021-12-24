@@ -21,6 +21,18 @@
   font-size: 100px;
 }
 
+@media screen and (max-width: 480px) {
+  .headerTitleLg{
+    font-size: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .headerTitleLg{
+    font-size: 60px;
+  }
+}
+
 .headerImg {
   width: 100%;
   height: 450px;

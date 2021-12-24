@@ -23,15 +23,16 @@ const userSchema = mongoose.Schema({
         required:true
     },
 
-    Geolocation:{
-        type:String,
-        required:true
-    },
 
     foodOrders:{
         type:Schema.Types.ObjectId,
         ref:"Foods"
     },
+
+    restaurantOwner:{
+        type:Boolean,
+        default:false
+    }
 
 
 },{timestamps:true});

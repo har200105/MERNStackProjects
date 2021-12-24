@@ -6,7 +6,25 @@
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
     margin: 30px 0;
   }
+
+  @media screen and (max-width:768px) {
+    .post{
+      width: fit-content !important;
+      flex: 8 !important;
+      padding: 30px;
+    }
+  }
   
+
+  
+  @media screen and (max-width:480px) {
+    .post{
+      width: fit-content !important;
+      flex: 8 !important;
+      padding: 30px;
+    }
+  }
+   
   .postWrapper {
     padding: 10px;
   }

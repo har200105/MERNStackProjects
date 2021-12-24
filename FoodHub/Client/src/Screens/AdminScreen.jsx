@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap'
 import { BrowserRouter, Switch, Route ,useHistory, Link} from "react-router-dom";
 import AllUsers from '../Component/AllUsers';
 import AllRestaurants from '../Component/AllRestaurants';
-import RestaurantReq from '../Component/RestaurantReq';
+import ApplyForRestaurant from '../Component/ApplyForRestaurant';
 import AllPosts from '../Component/AllPosts';
 import AllOrders from '../Component/AllOrders';
 import AllFoods from '../Component/AllFoods';
@@ -66,7 +66,7 @@ const AdminScreen = () => {
                             <Route path="/admin" component={AllUsers} exact/>
                             <Route path="/admin/allusers" component={AllUsers} exact/>
                             <Route path="/admin/allrestaurants" component={AllRestaurants} exact/>
-                            <Route path="/admin/restaurantsReq" component={RestaurantReq} exact/>
+                            <Route path="/admin/restaurantsReq" component={ApplyForRestaurant} exact/>
                             <Route path="/admin/allPosts" component={AllPosts} exact/>
                             <Route path="/admin/allOrders" component={AllOrders} exact/>
                             <Route exact path="/admin/allFoods" component={AllFoods} />

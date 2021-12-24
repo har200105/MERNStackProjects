@@ -4,7 +4,6 @@ const reqLogin = require('../middleware/reqLogin');
 
 router.post('/addMessage',reqLogin,async(req,res)=>{
     const newMessage = new Message(req.body);
-
     try {
       const savedMessage = await newMessage.save();
       res.status(201).json(savedMessage);

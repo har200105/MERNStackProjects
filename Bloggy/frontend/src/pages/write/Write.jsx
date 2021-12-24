@@ -110,11 +110,7 @@ export default function Write() {
           console.log(categoryRef.current.value)
           setError("")
         }}
-        style={{
-          marginLeft: "20px",
-          width: "150px",
-          marginBottom: "20px",
-        }}
+       className="news"
       >
         <option value={0}>Categories</option>
         {

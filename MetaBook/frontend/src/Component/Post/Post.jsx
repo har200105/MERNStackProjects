@@ -8,7 +8,7 @@ import { API } from '../../API';
 import { AuthContext } from '../../context/AuthContext';
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 
-const Post = ({ post }) => {
+const Post = ({ post ,fetchTimeLinePosts}) => {
 
     console.log(post)
 
@@ -34,6 +34,7 @@ const Post = ({ post }) => {
             }
         }).then((d) => {
             if (d.status === 201) {
+                fetchTimeLinePosts();
                 setCmt("");
                 console.log(d.data);
             }
@@ -163,7 +164,7 @@ const Post = ({ post }) => {
                                 paddingLeft: "20px",
                                 paddingTop: "10px"
                             }}>
-                                <img src={user?.profilePicture ? user?.profilePicture : "assets/noAvatar.png"} style={{
+                                <img src={user?.profilePicture ? user?.profilePicture : "/assets/noAvatar.png"} style={{
                                     height: "40px",
                                     width: "40px",
                                     borderRadius: "50%"
