@@ -31,7 +31,10 @@ export default function CategoryPost() {
           color: "red"
         }}>Something Went Wrong !!</div>}
         {
-          posts.length === 0 ? <p>Sorry No Posts Available Currently</p> :
+          posts.length === 0 ? <p style={{
+            textAlign:"center",
+            marginTop:"40px"
+          }}>Sorry No Posts Available Currently</p>:
             <Posts posts={posts} />
         }
         <Sidebar />

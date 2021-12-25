@@ -62,7 +62,6 @@
   font-style: italic;
   font-size: 13px;
   font-weight: bold;
-  /* color: #999999; */
   margin-top: 15px;
 }
 
@@ -71,7 +70,6 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  /* color: #444444; */
   margin-top: 15px;
   overflow: hidden;
   text-overflow: ellipsis;

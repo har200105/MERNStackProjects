@@ -56,7 +56,15 @@ export default function EditProfile() {
             }}>Blogs Posted</span>
           </div>
           <div>
-            {<Posts posts={userPosts} />}
+
+            {
+              userPosts.length === 0 ? <p style={{
+                textAlign:"center",
+                marginTop:"40px"
+              }}>Sorry No Posts Available Currently</p> :
+                <Posts posts={userPosts} />
+            }
+
           </div>
         </div>
       </div>

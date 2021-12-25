@@ -38,3 +38,5 @@ export default function Post({ img, post }) {
     </div>
   );
 }
+
+
