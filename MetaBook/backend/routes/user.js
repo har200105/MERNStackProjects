@@ -56,18 +56,12 @@ router.put("/editProfile", reqLogin, async (req, res) => {
         // }
 
 
-
-        // if(!profilePicture || !coverPicture){
             const user = await User.findByIdAndUpdate(req.user._id, {
                 $set: req.body
             });
             if (user) {
                 res.status(201).json({ message: "Account Has Been Updated" })
-            }
-        // }
-
-
-    
+            }    
     } catch (e) {
         return res.status(422).json(e);
     }

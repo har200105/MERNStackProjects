@@ -26,8 +26,6 @@ export default function Messenger() {
     const { user } = useContext(AuthContext);
     const scrollRef = useRef();
     const [onlines, setOnlines] = useState([]);
-    const [nextusers, setnextUsers] = useState(null);
-
     const getOnlineUsers = async () => {
 
         await axios.get(`${API}/getOnlineUser`, {
@@ -82,15 +80,12 @@ export default function Messenger() {
         } catch (err) {
             console.log(err);
         }
-    };
-
-    // useEffect(()=>{
-    //     getConversations();
-    // },[id]);
+    }
 
     useEffect(() => {
         socket.current = io("ws://localhost:7000");
         socket.current.on("getMessage", (data) => {
+            console.log(data)
             setArrivalMessage({
                 sender: data.senderId,
                 text: data.text,
@@ -109,12 +104,9 @@ export default function Messenger() {
     }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
-        console.log(user)
-        socket.current.emit("addUser", user?._id);
+        console.log(user);
+        socket.current.emit("addUser", user._id);
         socket.current.on("getUsers", (users) => {
-            // setOnlineUsers(
-            //     user?.following?.filter((f) => users.some((u) => u.userId === f))
-            // );
         });
     }, [user]);
 
@@ -189,7 +181,7 @@ export default function Messenger() {
                         }}>Chats</h4>
                         {conversations.map((c) => (
                             <div onClick={() => setCurrentChat(c)}>
-                                <Conversation conversation={c} currentUser={user} next={nextusers} setNext={setnextUsers}/>
+                                <Conversation conversation={c} currentUser={user}/>
                             </div>
                         ))}
                     </div>
@@ -206,11 +198,6 @@ export default function Messenger() {
                             padding:"10px"
 
                         }}>
-                            <img src={ nextusers?.profilePicture ? nextusers?.profilePicture : "/assets/noAvatar.png"} alt="" style={{
-                                width: "50px",
-                                height: "50px",
-                                borderRadius: "50%"
-                            }} />
                             {
                                 currentChat?.members?.map((c) => (
                                     c._id !== user._id &&

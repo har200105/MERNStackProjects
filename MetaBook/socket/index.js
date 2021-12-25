@@ -24,17 +24,13 @@ const io = require("socket.io")(7000, {
 }
 
   io.on("connection", (socket) => {
-    //when connect
     console.log("a user connected");
-  
-    //take userId and socketId from user
     socket.on("addUser", (userId) => {
         console.log(userId  + "Added")
       addUser(userId, socket.id);
       io.emit("getUsers", users);
     });
   
-    //send and get message
     socket.on("sendMessage", ({ senderId, receiverId, text }) => {
         console.log(senderId)
         console.log(receiverId)
@@ -47,7 +43,6 @@ const io = require("socket.io")(7000, {
       });
     });
   
-    //when disconnect
     socket.on("disconnect", () => {
       console.log("a user disconnected!");
       removeUser(socket.id);
